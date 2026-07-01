@@ -1,0 +1,83 @@
+# SAT-GUARDIAN Configuration
+
+project:
+  name: "SAT-GUARDIAN"
+  version: "1.0.0"
+  description: "Physics-Aware Adaptive Satellite Frame Interpolation System"
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  sample_dir: "data/sample"
+  frame_height: 256
+  frame_width: 256
+  channels: 1
+  time_step_minutes: 30  # INSAT-3DS observation interval
+
+optical_flow:
+  method: "farneback"           # Farneback optical flow method
+  physics_weight: 0.30          # Weight for ERA5 wind guidance
+  optical_weight: 0.70          # Weight for optical flow
+  pyr_scale: 0.5
+  levels: 3
+  winsize: 15
+  iterations: 3
+  poly_n: 5
+  poly_sigma: 1.2
+  flags: 0
+
+model:
+  name: "LightUNet"
+  input_channels: 3             # T0 + T1 + flow magnitude
+  output_channels: 1
+  base_filters: 32
+  depth: 4
+  dropout: 0.1
+  checkpoint_dir: "models/"
+
+training:
+  epochs: 50
+  batch_size: 4
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-5
+  val_split: 0.2
+  seed: 42
+  device: "auto"               # auto, cpu, cuda, mps
+  save_every: 10
+
+interpolation:
+  alpha_values: [0.25, 0.50, 0.75]   # Sub-frame positions
+  cascade:                            # Cascaded generation order
+    - 0.50
+    - 0.25
+    - 0.75
+
+confidence:
+  method: "flow_discrepancy"
+  sigma: 2.0                    # Gaussian smoothing sigma
+  normalize: true
+
+cloud_motion:
+  method: "cosine_similarity"
+  spatial_sample_rate: 8        # Sample every N pixels
+  scale_score: 100.0
+
+metrics:
+  compute:
+    - "ssim"
+    - "psnr"
+    - "mse"
+    - "fsim"
+  ssim_window: 11
+
+visualization:
+  dpi: 150
+  cmap_frame: "gray"
+  cmap_confidence: "RdYlGn"
+  cmap_flow: "hsv"
+  gif_fps: 4
+  output_dir: "outputs"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"

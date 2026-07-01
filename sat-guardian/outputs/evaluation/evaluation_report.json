@@ -1,0 +1,59 @@
+{
+  "sat_guardian_metrics": [
+    {
+      "label": "SAT T0.25",
+      "mse": 1.629124352336619e-05,
+      "psnr": 47.88045764388599,
+      "ssim": 0.9971039031533192,
+      "fsim": 0.9807220817807735
+    },
+    {
+      "label": "SAT T0.50",
+      "mse": 2.551532784961574e-05,
+      "psnr": 45.93198846992175,
+      "ssim": 0.9932930048436107,
+      "fsim": 0.9824280897500209
+    },
+    {
+      "label": "SAT T0.75",
+      "mse": 3.0417351355289075e-05,
+      "psnr": 45.16878605597381,
+      "ssim": 0.9918869898224508,
+      "fsim": 0.9819939097863872
+    }
+  ],
+  "baseline_metrics": [
+    {
+      "label": "BL  T0.25",
+      "mse": 0.0,
+      "psnr": Infinity,
+      "ssim": 1.0,
+      "fsim": 0.9999999999992674
+    },
+    {
+      "label": "BL  T0.50",
+      "mse": 0.0,
+      "psnr": Infinity,
+      "ssim": 1.0,
+      "fsim": 0.9999999999992671
+    },
+    {
+      "label": "BL  T0.75",
+      "mse": 0.0,
+      "psnr": Infinity,
+      "ssim": 1.0,
+      "fsim": 0.9999999999992362
+    }
+  ],
+  "cloud_motion": {
+    "overall_score": 97.75,
+    "cloud_region_score": 97.75,
+    "spatial_mean_sim": 0.9896988272666931,
+    "spatial_std_sim": 0.058583978563547134,
+    "interpretation": "Excellent \u2013 motion highly consistent with ERA5 wind"
+  },
+  "temporal_consistency": {
+    "sat_guardian": 0.9999668021209056,
+    "baseline": 0.9999791709627263
+  }
+}
