@@ -230,9 +230,6 @@ EOF
 
 ---
 
-## 📄 License
-
-Released under the **MIT License** — see [LICENSE](LICENSE).
 
 <div align="center">
 
